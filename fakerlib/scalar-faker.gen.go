@@ -30,26 +30,8 @@ func (j *Json) fakeBoolean(fg fieldgen.Generator, path string, out map[string]in
 }
 	
 func (j *Json) fakeVectorBoolean(fg fieldgen.Generator, path string, out map[string]interface{}, fieldType reflect.FieldContainer) (err error) {
-	var shouldNil bool
 	var vLen int
 	var v bool
-
-	shouldNil, err = fg.ShouldBeNil(path, fieldType)
-
-	if err != nil {
-		err = &Error{
-			Path:        path,
-			HybridType:  fieldType.HybridType(),
-			OmniID:      fieldType.ID(),
-			ErrorMsg:    err.Error(),
-		}
-		return
-	}
-
-	if shouldNil {
-		out[fieldType.Name()] = nil
-		return
-	}
 
 	//generate vector len
 	vLen, err = fg.VectorLen(path, fieldType)
@@ -108,26 +90,8 @@ func (j *Json) fakeInt8(fg fieldgen.Generator, path string, out map[string]inter
 }
 	
 func (j *Json) fakeVectorInt8(fg fieldgen.Generator, path string, out map[string]interface{}, fieldType reflect.FieldContainer) (err error) {
-	var shouldNil bool
 	var vLen int
 	var v int8
-
-	shouldNil, err = fg.ShouldBeNil(path, fieldType)
-
-	if err != nil {
-		err = &Error{
-			Path:        path,
-			HybridType:  fieldType.HybridType(),
-			OmniID:      fieldType.ID(),
-			ErrorMsg:    err.Error(),
-		}
-		return
-	}
-
-	if shouldNil {
-		out[fieldType.Name()] = nil
-		return
-	}
 
 	//generate vector len
 	vLen, err = fg.VectorLen(path, fieldType)
@@ -186,26 +150,8 @@ func (j *Json) fakeUint8(fg fieldgen.Generator, path string, out map[string]inte
 }
 	
 func (j *Json) fakeVectorUint8(fg fieldgen.Generator, path string, out map[string]interface{}, fieldType reflect.FieldContainer) (err error) {
-	var shouldNil bool
 	var vLen int
 	var v uint8
-
-	shouldNil, err = fg.ShouldBeNil(path, fieldType)
-
-	if err != nil {
-		err = &Error{
-			Path:        path,
-			HybridType:  fieldType.HybridType(),
-			OmniID:      fieldType.ID(),
-			ErrorMsg:    err.Error(),
-		}
-		return
-	}
-
-	if shouldNil {
-		out[fieldType.Name()] = nil
-		return
-	}
 
 	//generate vector len
 	vLen, err = fg.VectorLen(path, fieldType)
@@ -264,26 +210,8 @@ func (j *Json) fakeInt16(fg fieldgen.Generator, path string, out map[string]inte
 }
 	
 func (j *Json) fakeVectorInt16(fg fieldgen.Generator, path string, out map[string]interface{}, fieldType reflect.FieldContainer) (err error) {
-	var shouldNil bool
 	var vLen int
 	var v int16
-
-	shouldNil, err = fg.ShouldBeNil(path, fieldType)
-
-	if err != nil {
-		err = &Error{
-			Path:        path,
-			HybridType:  fieldType.HybridType(),
-			OmniID:      fieldType.ID(),
-			ErrorMsg:    err.Error(),
-		}
-		return
-	}
-
-	if shouldNil {
-		out[fieldType.Name()] = nil
-		return
-	}
 
 	//generate vector len
 	vLen, err = fg.VectorLen(path, fieldType)
@@ -342,26 +270,8 @@ func (j *Json) fakeUint16(fg fieldgen.Generator, path string, out map[string]int
 }
 	
 func (j *Json) fakeVectorUint16(fg fieldgen.Generator, path string, out map[string]interface{}, fieldType reflect.FieldContainer) (err error) {
-	var shouldNil bool
 	var vLen int
 	var v uint16
-
-	shouldNil, err = fg.ShouldBeNil(path, fieldType)
-
-	if err != nil {
-		err = &Error{
-			Path:        path,
-			HybridType:  fieldType.HybridType(),
-			OmniID:      fieldType.ID(),
-			ErrorMsg:    err.Error(),
-		}
-		return
-	}
-
-	if shouldNil {
-		out[fieldType.Name()] = nil
-		return
-	}
 
 	//generate vector len
 	vLen, err = fg.VectorLen(path, fieldType)
@@ -420,26 +330,8 @@ func (j *Json) fakeInt32(fg fieldgen.Generator, path string, out map[string]inte
 }
 	
 func (j *Json) fakeVectorInt32(fg fieldgen.Generator, path string, out map[string]interface{}, fieldType reflect.FieldContainer) (err error) {
-	var shouldNil bool
 	var vLen int
 	var v int32
-
-	shouldNil, err = fg.ShouldBeNil(path, fieldType)
-
-	if err != nil {
-		err = &Error{
-			Path:        path,
-			HybridType:  fieldType.HybridType(),
-			OmniID:      fieldType.ID(),
-			ErrorMsg:    err.Error(),
-		}
-		return
-	}
-
-	if shouldNil {
-		out[fieldType.Name()] = nil
-		return
-	}
 
 	//generate vector len
 	vLen, err = fg.VectorLen(path, fieldType)
@@ -498,26 +390,8 @@ func (j *Json) fakeUint32(fg fieldgen.Generator, path string, out map[string]int
 }
 	
 func (j *Json) fakeVectorUint32(fg fieldgen.Generator, path string, out map[string]interface{}, fieldType reflect.FieldContainer) (err error) {
-	var shouldNil bool
 	var vLen int
 	var v uint32
-
-	shouldNil, err = fg.ShouldBeNil(path, fieldType)
-
-	if err != nil {
-		err = &Error{
-			Path:        path,
-			HybridType:  fieldType.HybridType(),
-			OmniID:      fieldType.ID(),
-			ErrorMsg:    err.Error(),
-		}
-		return
-	}
-
-	if shouldNil {
-		out[fieldType.Name()] = nil
-		return
-	}
 
 	//generate vector len
 	vLen, err = fg.VectorLen(path, fieldType)
@@ -576,26 +450,8 @@ func (j *Json) fakeInt64(fg fieldgen.Generator, path string, out map[string]inte
 }
 	
 func (j *Json) fakeVectorInt64(fg fieldgen.Generator, path string, out map[string]interface{}, fieldType reflect.FieldContainer) (err error) {
-	var shouldNil bool
 	var vLen int
 	var v int64
-
-	shouldNil, err = fg.ShouldBeNil(path, fieldType)
-
-	if err != nil {
-		err = &Error{
-			Path:        path,
-			HybridType:  fieldType.HybridType(),
-			OmniID:      fieldType.ID(),
-			ErrorMsg:    err.Error(),
-		}
-		return
-	}
-
-	if shouldNil {
-		out[fieldType.Name()] = nil
-		return
-	}
 
 	//generate vector len
 	vLen, err = fg.VectorLen(path, fieldType)
@@ -654,26 +510,8 @@ func (j *Json) fakeUint64(fg fieldgen.Generator, path string, out map[string]int
 }
 	
 func (j *Json) fakeVectorUint64(fg fieldgen.Generator, path string, out map[string]interface{}, fieldType reflect.FieldContainer) (err error) {
-	var shouldNil bool
 	var vLen int
 	var v uint64
-
-	shouldNil, err = fg.ShouldBeNil(path, fieldType)
-
-	if err != nil {
-		err = &Error{
-			Path:        path,
-			HybridType:  fieldType.HybridType(),
-			OmniID:      fieldType.ID(),
-			ErrorMsg:    err.Error(),
-		}
-		return
-	}
-
-	if shouldNil {
-		out[fieldType.Name()] = nil
-		return
-	}
 
 	//generate vector len
 	vLen, err = fg.VectorLen(path, fieldType)
@@ -732,26 +570,8 @@ func (j *Json) fakeFloat32(fg fieldgen.Generator, path string, out map[string]in
 }
 	
 func (j *Json) fakeVectorFloat32(fg fieldgen.Generator, path string, out map[string]interface{}, fieldType reflect.FieldContainer) (err error) {
-	var shouldNil bool
 	var vLen int
 	var v float32
-
-	shouldNil, err = fg.ShouldBeNil(path, fieldType)
-
-	if err != nil {
-		err = &Error{
-			Path:        path,
-			HybridType:  fieldType.HybridType(),
-			OmniID:      fieldType.ID(),
-			ErrorMsg:    err.Error(),
-		}
-		return
-	}
-
-	if shouldNil {
-		out[fieldType.Name()] = nil
-		return
-	}
 
 	//generate vector len
 	vLen, err = fg.VectorLen(path, fieldType)
@@ -810,26 +630,8 @@ func (j *Json) fakeFloat64(fg fieldgen.Generator, path string, out map[string]in
 }
 	
 func (j *Json) fakeVectorFloat64(fg fieldgen.Generator, path string, out map[string]interface{}, fieldType reflect.FieldContainer) (err error) {
-	var shouldNil bool
 	var vLen int
 	var v float64
-
-	shouldNil, err = fg.ShouldBeNil(path, fieldType)
-
-	if err != nil {
-		err = &Error{
-			Path:        path,
-			HybridType:  fieldType.HybridType(),
-			OmniID:      fieldType.ID(),
-			ErrorMsg:    err.Error(),
-		}
-		return
-	}
-
-	if shouldNil {
-		out[fieldType.Name()] = nil
-		return
-	}
 
 	//generate vector len
 	vLen, err = fg.VectorLen(path, fieldType)

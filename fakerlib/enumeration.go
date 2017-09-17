@@ -76,28 +76,10 @@ func (j *Json) fakeEnum(fg fieldgen.Generator, path string, out map[string]inter
 
 func (j *Json) fakeVectorEnum(fg fieldgen.Generator, path string, out map[string]interface{}, ft reflect.FieldContainer, enumType reflect.EnumerationContainer) (err error) {
 	var vLen int
-	var shouldNil bool
 	var enumName string
 	var enumUint8 uint8
 	var enumUint16 uint16
 	var choiceString bool
-
-	shouldNil, err = fg.ShouldBeNil(path, ft)
-
-	if err != nil {
-		err = &Error{
-			Path:       path,
-			HybridType: ft.HybridType(),
-			OmniID:     ft.ID(),
-			ErrorMsg:   err.Error(),
-		}
-		return
-	}
-
-	if shouldNil {
-		out[ft.Name()] = nil
-		return
-	}
 
 	//generate vector len
 	vLen, err = fg.VectorLen(path, ft)

@@ -42,26 +42,8 @@ func (j *Json) fake{{.scalar.String}}(fg fieldgen.Generator, path string, out ma
 }
 	
 func (j *Json) fakeVector{{.scalar.String}}(fg fieldgen.Generator, path string, out map[string]interface{}, fieldType reflect.FieldContainer) (err error) {
-	var shouldNil bool
 	var vLen int
 	var v {{.scalar.NativeType}}
-
-	shouldNil, err = fg.ShouldBeNil(path, fieldType)
-
-	if err != nil {
-		err = &Error{
-			Path:        path,
-			HybridType:  fieldType.HybridType(),
-			OmniID:      fieldType.ID(),
-			ErrorMsg:    err.Error(),
-		}
-		return
-	}
-
-	if shouldNil {
-		out[fieldType.Name()] = nil
-		return
-	}
 
 	//generate vector len
 	vLen, err = fg.VectorLen(path, fieldType)
@@ -287,52 +269,6 @@ func Test_Fake{{.scalar.String}}(t *testing.T) {
 	
 func Test_FakeVector{{.scalar.String}}(t *testing.T) {
 	Convey("Test_FakeVector{{.scalar.String}}", t, func() {
-
-		Convey("should return error if ShouldBeNil selector returns error", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.Vector{{.scalar.String}})
-			fieldMock.On("ID").Return("Struct/Test")
-
-
-			fieldMock.On("Id").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(false, fmt.Errorf("entropy error"))
-			out := map[string]interface{}{}
-
-			err := f.fakeVector{{.scalar.String}}(fg, "test.field", out, fieldMock)
-
-			So(err, ShouldNotBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			ef := err.(*Error)
-			So(ef.HybridType, ShouldEqual, hybrids.Vector{{.scalar.String}})
-			So(ef.OmniID, ShouldEqual, "Struct/Test")
-			So(ef.Path, ShouldEqual, "test.field")
-
-		})
-
-		Convey("should put the field nil if  ShouldBeNil returns true", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.Vector{{.scalar.String}})
-
-			fieldMock.On("ID").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(true, nil)
-			out := map[string]interface{}{}
-
-			err := f.fakeVector{{.scalar.String}}(fg, "test.field", out, fieldMock)
-			So(err, ShouldBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			value, ok := out["field"]
-			So(value, ShouldEqual, nil)
-			So(ok, ShouldBeTrue)
-
-		})
 
 		Convey("should return error if the random vector len generator returns errors", func() {
 			fg := &fmocks.Generator{}

@@ -18,6 +18,8 @@ type EnumerationGenerator interface {
 //UnionGenerator ...
 type UnionGenerator interface {
 	SelectTable(path string, fieldType reflect.FieldContainer) (childFieldType reflect.TableContainer, err error)
+	SelectResource(path string, fieldType reflect.FieldContainer) (childFieldType reflect.ResourceContainer, err error)
+	SelectExternalResource(path string, fieldType reflect.FieldContainer) (childFieldType reflect.ExternalResourceContainer, err error)
 }
 
 //go:generate mockery -name=Generator

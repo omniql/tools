@@ -1,50 +1,31 @@
 package faker
 
 import (
-	"github.com/nebtex/omniql/commons/golang/oreflection"
+	"github.com/omniql/reflect"
 	"strings"
 	"fmt"
+	"github.com/omniql/tools/fieldgen"
 )
 
-func (j *Json) fakeUnion(path string, out map[string]interface{}, fieldType oreflection.OType, union oreflection.Union) (err error) {
-	var shouldNil bool
-	var childFieldType oreflection.OType
+func (j *Json) fakeUnion(fg fieldgen.Generator, path string, out map[string]interface{}, fieldType reflect.FieldContainer, union reflect.UnionContainer) (err error) {
+	var childFieldType reflect.FieldContainer
 
 	deep := len(strings.Split(path, "."))
 
 	if deep > j.maxDeep {
-		out[fieldType.Field().Name()] = nil
-		return
-	}
-
-	shouldNil, err = j.fieldGen.ShouldBeNil(path, fieldType)
-
-	if err != nil {
-		err = &Error{
-			Path:       path,
-			HybridType: fieldType.Field().HybridType(),
-			OmniqlType: fieldType.Id(),
-			Package:    fieldType.Package(),
-			ErrorMsg:   err.Error(),
-		}
-		return
-	}
-
-	if shouldNil {
-		out[fieldType.Field().Name()] = nil
+		out[fieldType.Name()] = nil
 		return
 	}
 
 	unionObject := map[string]interface{}{}
 
-	childFieldType, err = j.fieldGen.Union.SelectTable(path, fieldType)
+	childFieldType, err = fg.Union.SelectTable(path, fieldType)
 
 	if err != nil {
 		err = &Error{
 			Path:       path,
-			HybridType: fieldType.Field().HybridType(),
-			OmniqlType: fieldType.Id(),
-			Package:    fieldType.Package(),
+			HybridType: fieldType.HybridType(),
+			OmniID:     fieldType.ID(),
 			ErrorMsg:   err.Error(),
 		}
 		return
@@ -52,7 +33,7 @@ func (j *Json) fakeUnion(path string, out map[string]interface{}, fieldType oref
 
 	table := childFieldType.Field().Type().Table()
 	err = j.fakeTable(path+"."+childFieldType.Field().Name(), unionObject, childFieldType, table)
-	if err!=nil {
+	if err != nil {
 		return
 	}
 
@@ -60,11 +41,10 @@ func (j *Json) fakeUnion(path string, out map[string]interface{}, fieldType oref
 	return
 }
 
-
 func (j *Json) fakeVectorUnion(path string, out map[string]interface{}, fieldType oreflection.OType, union oreflection.Union) (err error) {
 	var shouldNil bool
 	var vLen int
-	var childFieldType  oreflection.OType
+	var childFieldType oreflection.OType
 
 	deep := len(strings.Split(path, "."))
 
@@ -114,7 +94,7 @@ func (j *Json) fakeVectorUnion(path string, out map[string]interface{}, fieldTyp
 
 		if err != nil {
 			err = &Error{
-				Path:       path+fmt.Sprintf("[%d].%s", i, childFieldType.Field().Name()),
+				Path:       path + fmt.Sprintf("[%d].%s", i, childFieldType.Field().Name()),
 				HybridType: fieldType.Field().HybridType(),
 				OmniqlType: fieldType.Id(),
 				Package:    fieldType.Package(),
@@ -126,7 +106,7 @@ func (j *Json) fakeVectorUnion(path string, out map[string]interface{}, fieldTyp
 		table := childFieldType.Field().Type().Table()
 
 		err = j.fakeTable(path+fmt.Sprintf("[%d].%s", i, childFieldType.Field().Name()), unionObject, childFieldType, table)
-		if err!=nil {
+		if err != nil {
 			return
 		}
 

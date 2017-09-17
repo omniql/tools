@@ -62,52 +62,6 @@ func Test_FakeBoolean(t *testing.T) {
 func Test_FakeVectorBoolean(t *testing.T) {
 	Convey("Test_FakeVectorBoolean", t, func() {
 
-		Convey("should return error if ShouldBeNil selector returns error", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorBoolean)
-			fieldMock.On("ID").Return("Struct/Test")
-
-
-			fieldMock.On("Id").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(false, fmt.Errorf("entropy error"))
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorBoolean(fg, "test.field", out, fieldMock)
-
-			So(err, ShouldNotBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			ef := err.(*Error)
-			So(ef.HybridType, ShouldEqual, hybrids.VectorBoolean)
-			So(ef.OmniID, ShouldEqual, "Struct/Test")
-			So(ef.Path, ShouldEqual, "test.field")
-
-		})
-
-		Convey("should put the field nil if  ShouldBeNil returns true", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorBoolean)
-
-			fieldMock.On("ID").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(true, nil)
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorBoolean(fg, "test.field", out, fieldMock)
-			So(err, ShouldBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			value, ok := out["field"]
-			So(value, ShouldEqual, nil)
-			So(ok, ShouldBeTrue)
-
-		})
-
 		Convey("should return error if the random vector len generator returns errors", func() {
 			fg := &fmocks.Generator{}
 			f := &Json{}
@@ -243,52 +197,6 @@ func Test_FakeInt8(t *testing.T) {
 	
 func Test_FakeVectorInt8(t *testing.T) {
 	Convey("Test_FakeVectorInt8", t, func() {
-
-		Convey("should return error if ShouldBeNil selector returns error", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorInt8)
-			fieldMock.On("ID").Return("Struct/Test")
-
-
-			fieldMock.On("Id").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(false, fmt.Errorf("entropy error"))
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorInt8(fg, "test.field", out, fieldMock)
-
-			So(err, ShouldNotBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			ef := err.(*Error)
-			So(ef.HybridType, ShouldEqual, hybrids.VectorInt8)
-			So(ef.OmniID, ShouldEqual, "Struct/Test")
-			So(ef.Path, ShouldEqual, "test.field")
-
-		})
-
-		Convey("should put the field nil if  ShouldBeNil returns true", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorInt8)
-
-			fieldMock.On("ID").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(true, nil)
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorInt8(fg, "test.field", out, fieldMock)
-			So(err, ShouldBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			value, ok := out["field"]
-			So(value, ShouldEqual, nil)
-			So(ok, ShouldBeTrue)
-
-		})
 
 		Convey("should return error if the random vector len generator returns errors", func() {
 			fg := &fmocks.Generator{}
@@ -426,52 +334,6 @@ func Test_FakeUint8(t *testing.T) {
 func Test_FakeVectorUint8(t *testing.T) {
 	Convey("Test_FakeVectorUint8", t, func() {
 
-		Convey("should return error if ShouldBeNil selector returns error", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorUint8)
-			fieldMock.On("ID").Return("Struct/Test")
-
-
-			fieldMock.On("Id").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(false, fmt.Errorf("entropy error"))
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorUint8(fg, "test.field", out, fieldMock)
-
-			So(err, ShouldNotBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			ef := err.(*Error)
-			So(ef.HybridType, ShouldEqual, hybrids.VectorUint8)
-			So(ef.OmniID, ShouldEqual, "Struct/Test")
-			So(ef.Path, ShouldEqual, "test.field")
-
-		})
-
-		Convey("should put the field nil if  ShouldBeNil returns true", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorUint8)
-
-			fieldMock.On("ID").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(true, nil)
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorUint8(fg, "test.field", out, fieldMock)
-			So(err, ShouldBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			value, ok := out["field"]
-			So(value, ShouldEqual, nil)
-			So(ok, ShouldBeTrue)
-
-		})
-
 		Convey("should return error if the random vector len generator returns errors", func() {
 			fg := &fmocks.Generator{}
 			f := &Json{}
@@ -607,52 +469,6 @@ func Test_FakeInt16(t *testing.T) {
 	
 func Test_FakeVectorInt16(t *testing.T) {
 	Convey("Test_FakeVectorInt16", t, func() {
-
-		Convey("should return error if ShouldBeNil selector returns error", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorInt16)
-			fieldMock.On("ID").Return("Struct/Test")
-
-
-			fieldMock.On("Id").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(false, fmt.Errorf("entropy error"))
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorInt16(fg, "test.field", out, fieldMock)
-
-			So(err, ShouldNotBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			ef := err.(*Error)
-			So(ef.HybridType, ShouldEqual, hybrids.VectorInt16)
-			So(ef.OmniID, ShouldEqual, "Struct/Test")
-			So(ef.Path, ShouldEqual, "test.field")
-
-		})
-
-		Convey("should put the field nil if  ShouldBeNil returns true", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorInt16)
-
-			fieldMock.On("ID").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(true, nil)
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorInt16(fg, "test.field", out, fieldMock)
-			So(err, ShouldBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			value, ok := out["field"]
-			So(value, ShouldEqual, nil)
-			So(ok, ShouldBeTrue)
-
-		})
 
 		Convey("should return error if the random vector len generator returns errors", func() {
 			fg := &fmocks.Generator{}
@@ -790,52 +606,6 @@ func Test_FakeUint16(t *testing.T) {
 func Test_FakeVectorUint16(t *testing.T) {
 	Convey("Test_FakeVectorUint16", t, func() {
 
-		Convey("should return error if ShouldBeNil selector returns error", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorUint16)
-			fieldMock.On("ID").Return("Struct/Test")
-
-
-			fieldMock.On("Id").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(false, fmt.Errorf("entropy error"))
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorUint16(fg, "test.field", out, fieldMock)
-
-			So(err, ShouldNotBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			ef := err.(*Error)
-			So(ef.HybridType, ShouldEqual, hybrids.VectorUint16)
-			So(ef.OmniID, ShouldEqual, "Struct/Test")
-			So(ef.Path, ShouldEqual, "test.field")
-
-		})
-
-		Convey("should put the field nil if  ShouldBeNil returns true", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorUint16)
-
-			fieldMock.On("ID").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(true, nil)
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorUint16(fg, "test.field", out, fieldMock)
-			So(err, ShouldBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			value, ok := out["field"]
-			So(value, ShouldEqual, nil)
-			So(ok, ShouldBeTrue)
-
-		})
-
 		Convey("should return error if the random vector len generator returns errors", func() {
 			fg := &fmocks.Generator{}
 			f := &Json{}
@@ -971,52 +741,6 @@ func Test_FakeInt32(t *testing.T) {
 	
 func Test_FakeVectorInt32(t *testing.T) {
 	Convey("Test_FakeVectorInt32", t, func() {
-
-		Convey("should return error if ShouldBeNil selector returns error", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorInt32)
-			fieldMock.On("ID").Return("Struct/Test")
-
-
-			fieldMock.On("Id").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(false, fmt.Errorf("entropy error"))
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorInt32(fg, "test.field", out, fieldMock)
-
-			So(err, ShouldNotBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			ef := err.(*Error)
-			So(ef.HybridType, ShouldEqual, hybrids.VectorInt32)
-			So(ef.OmniID, ShouldEqual, "Struct/Test")
-			So(ef.Path, ShouldEqual, "test.field")
-
-		})
-
-		Convey("should put the field nil if  ShouldBeNil returns true", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorInt32)
-
-			fieldMock.On("ID").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(true, nil)
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorInt32(fg, "test.field", out, fieldMock)
-			So(err, ShouldBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			value, ok := out["field"]
-			So(value, ShouldEqual, nil)
-			So(ok, ShouldBeTrue)
-
-		})
 
 		Convey("should return error if the random vector len generator returns errors", func() {
 			fg := &fmocks.Generator{}
@@ -1154,52 +878,6 @@ func Test_FakeUint32(t *testing.T) {
 func Test_FakeVectorUint32(t *testing.T) {
 	Convey("Test_FakeVectorUint32", t, func() {
 
-		Convey("should return error if ShouldBeNil selector returns error", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorUint32)
-			fieldMock.On("ID").Return("Struct/Test")
-
-
-			fieldMock.On("Id").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(false, fmt.Errorf("entropy error"))
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorUint32(fg, "test.field", out, fieldMock)
-
-			So(err, ShouldNotBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			ef := err.(*Error)
-			So(ef.HybridType, ShouldEqual, hybrids.VectorUint32)
-			So(ef.OmniID, ShouldEqual, "Struct/Test")
-			So(ef.Path, ShouldEqual, "test.field")
-
-		})
-
-		Convey("should put the field nil if  ShouldBeNil returns true", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorUint32)
-
-			fieldMock.On("ID").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(true, nil)
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorUint32(fg, "test.field", out, fieldMock)
-			So(err, ShouldBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			value, ok := out["field"]
-			So(value, ShouldEqual, nil)
-			So(ok, ShouldBeTrue)
-
-		})
-
 		Convey("should return error if the random vector len generator returns errors", func() {
 			fg := &fmocks.Generator{}
 			f := &Json{}
@@ -1335,52 +1013,6 @@ func Test_FakeInt64(t *testing.T) {
 	
 func Test_FakeVectorInt64(t *testing.T) {
 	Convey("Test_FakeVectorInt64", t, func() {
-
-		Convey("should return error if ShouldBeNil selector returns error", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorInt64)
-			fieldMock.On("ID").Return("Struct/Test")
-
-
-			fieldMock.On("Id").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(false, fmt.Errorf("entropy error"))
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorInt64(fg, "test.field", out, fieldMock)
-
-			So(err, ShouldNotBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			ef := err.(*Error)
-			So(ef.HybridType, ShouldEqual, hybrids.VectorInt64)
-			So(ef.OmniID, ShouldEqual, "Struct/Test")
-			So(ef.Path, ShouldEqual, "test.field")
-
-		})
-
-		Convey("should put the field nil if  ShouldBeNil returns true", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorInt64)
-
-			fieldMock.On("ID").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(true, nil)
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorInt64(fg, "test.field", out, fieldMock)
-			So(err, ShouldBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			value, ok := out["field"]
-			So(value, ShouldEqual, nil)
-			So(ok, ShouldBeTrue)
-
-		})
 
 		Convey("should return error if the random vector len generator returns errors", func() {
 			fg := &fmocks.Generator{}
@@ -1518,52 +1150,6 @@ func Test_FakeUint64(t *testing.T) {
 func Test_FakeVectorUint64(t *testing.T) {
 	Convey("Test_FakeVectorUint64", t, func() {
 
-		Convey("should return error if ShouldBeNil selector returns error", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorUint64)
-			fieldMock.On("ID").Return("Struct/Test")
-
-
-			fieldMock.On("Id").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(false, fmt.Errorf("entropy error"))
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorUint64(fg, "test.field", out, fieldMock)
-
-			So(err, ShouldNotBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			ef := err.(*Error)
-			So(ef.HybridType, ShouldEqual, hybrids.VectorUint64)
-			So(ef.OmniID, ShouldEqual, "Struct/Test")
-			So(ef.Path, ShouldEqual, "test.field")
-
-		})
-
-		Convey("should put the field nil if  ShouldBeNil returns true", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorUint64)
-
-			fieldMock.On("ID").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(true, nil)
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorUint64(fg, "test.field", out, fieldMock)
-			So(err, ShouldBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			value, ok := out["field"]
-			So(value, ShouldEqual, nil)
-			So(ok, ShouldBeTrue)
-
-		})
-
 		Convey("should return error if the random vector len generator returns errors", func() {
 			fg := &fmocks.Generator{}
 			f := &Json{}
@@ -1700,52 +1286,6 @@ func Test_FakeFloat32(t *testing.T) {
 func Test_FakeVectorFloat32(t *testing.T) {
 	Convey("Test_FakeVectorFloat32", t, func() {
 
-		Convey("should return error if ShouldBeNil selector returns error", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorFloat32)
-			fieldMock.On("ID").Return("Struct/Test")
-
-
-			fieldMock.On("Id").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(false, fmt.Errorf("entropy error"))
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorFloat32(fg, "test.field", out, fieldMock)
-
-			So(err, ShouldNotBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			ef := err.(*Error)
-			So(ef.HybridType, ShouldEqual, hybrids.VectorFloat32)
-			So(ef.OmniID, ShouldEqual, "Struct/Test")
-			So(ef.Path, ShouldEqual, "test.field")
-
-		})
-
-		Convey("should put the field nil if  ShouldBeNil returns true", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorFloat32)
-
-			fieldMock.On("ID").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(true, nil)
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorFloat32(fg, "test.field", out, fieldMock)
-			So(err, ShouldBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			value, ok := out["field"]
-			So(value, ShouldEqual, nil)
-			So(ok, ShouldBeTrue)
-
-		})
-
 		Convey("should return error if the random vector len generator returns errors", func() {
 			fg := &fmocks.Generator{}
 			f := &Json{}
@@ -1881,52 +1421,6 @@ func Test_FakeFloat64(t *testing.T) {
 	
 func Test_FakeVectorFloat64(t *testing.T) {
 	Convey("Test_FakeVectorFloat64", t, func() {
-
-		Convey("should return error if ShouldBeNil selector returns error", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorFloat64)
-			fieldMock.On("ID").Return("Struct/Test")
-
-
-			fieldMock.On("Id").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(false, fmt.Errorf("entropy error"))
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorFloat64(fg, "test.field", out, fieldMock)
-
-			So(err, ShouldNotBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			ef := err.(*Error)
-			So(ef.HybridType, ShouldEqual, hybrids.VectorFloat64)
-			So(ef.OmniID, ShouldEqual, "Struct/Test")
-			So(ef.Path, ShouldEqual, "test.field")
-
-		})
-
-		Convey("should put the field nil if  ShouldBeNil returns true", func() {
-			fg := &fmocks.Generator{}
-			f := &Json{}
-
-			fieldMock := &rmocks.FieldContainer{}
-			fieldMock.On("Name").Return("field")
-			fieldMock.On("HybridType").Return(hybrids.VectorFloat64)
-
-			fieldMock.On("ID").Return("Struct/Test")
-			fg.On("ShouldBeNil", "test.field", fieldMock).Return(true, nil)
-			out := map[string]interface{}{}
-
-			err := f.fakeVectorFloat64(fg, "test.field", out, fieldMock)
-			So(err, ShouldBeNil)
-			fg.AssertCalled(t, "ShouldBeNil", "test.field", fieldMock)
-			value, ok := out["field"]
-			So(value, ShouldEqual, nil)
-			So(ok, ShouldBeTrue)
-
-		})
 
 		Convey("should return error if the random vector len generator returns errors", func() {
 			fg := &fmocks.Generator{}
