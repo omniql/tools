@@ -3,7 +3,6 @@ package fieldgen
 import (
 	"github.com/omniql/reflect"
 	"github.com/nebtex/hybrids/golang/hybrids"
-	"github.com/nebtex/omniql/commons/golang/oreflection"
 )
 
 //go:generate mockery -name=EnumerationGenerator
@@ -18,14 +17,14 @@ type EnumerationGenerator interface {
 //go:generate mockery -name=EnumerationGenerator
 //UnionGenerator ...
 type UnionGenerator interface {
-	SelectTable(path string, fieldType oreflection.OType) (childFieldType oreflection.OType, err error)
+	SelectTable(path string, fieldType reflect.FieldContainer) (childFieldType reflect.TableContainer, err error)
 }
 
-//go:generate mockery -name=FieldGenerator
+//go:generate mockery -name=Generator
 //FieldGenerator generate random data using the reflection interface
 type Generator interface {
 	//generate random vector len
-	VectorLen(path string, ot reflect.FieldContainer, maxlen int) (int, error)
+	VectorLen(path string, ot reflect.FieldContainer) (int, error)
 
 	//return if a field should be nil or not (don't use this on scalar or structs)
 	ShouldBeNil(path string, ot reflect.FieldContainer) (bool, error)
@@ -76,7 +75,7 @@ type Generator interface {
 	Enumeration() EnumerationGenerator
 
 	//Decide if a field should be generated or not
-	ShouldGenerateField(path string, table oreflection.OType, fn hybrids.FieldNumber) (bool, error)
+	ShouldGenerateField(path string, table reflect.FieldContainer) (bool, error)
 
 	//Union random generator helpers
 	Union() UnionGenerator
